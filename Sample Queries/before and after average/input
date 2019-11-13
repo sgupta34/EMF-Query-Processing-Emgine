@@ -1,0 +1,12 @@
+﻿// SELECT ATTRIBUTE(S):
+cust, month, avg_1_quant, avg_0_quant, avg_2_quant
+// NUMBER OF GROUPING VARIABLES(n):
+2
+// GROUPING ATTRIBUTES(V):
+cust, month
+// F-VECT([F]):
+avg_0_quant; avg_1_quant; avg_2_quant
+// SELECT CONDITION-VECT([Sigma]):
+0.cust = cust and 0.month = month; 1.cust = cust and 1.month < month; 2.cust = cust and 2.month > month
+// HAVING CONDITION(G):
+ 

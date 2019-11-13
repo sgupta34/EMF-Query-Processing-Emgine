@@ -1,0 +1,12 @@
+﻿// SELECT ATTRIBUTE(S):
+prod, month, sum_1_quant, sum_2_quant
+// NUMBER OF GROUPING VARIABLES(n):
+2
+// GROUPING ATTRIBUTES(V):
+prod, month
+// F-VECT([F]):
+ ; sum_1_quant; sum_2_quant
+// SELECT CONDITION-VECT([Sigma]):
+ ; 1.prod = prod and 1.month = month; 2.prod = prod
+// HAVING CONDITION(G):
+ 

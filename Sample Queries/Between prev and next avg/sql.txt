@@ -1,0 +1,20 @@
+For each product count for each month of 1997 the sales that were between 
+the previous and the following month's average sale.
+
+WITH
+table1 AS
+( SELECT z.prod, z.month, avg(x.quant)
+  FROM sales x, sales z
+  WHERE x.prod = z.prod AND x.month = z.month - 1
+  GROUP BY z.prod, z.month ),
+table2 AS
+( SELECT z.prod, z.month, avg(y.quant)
+  FROM sales z, sales y
+  WHERE z.prod = y.prod AND y.month = z.month + 1
+  GROUP BY z.prod, z.month )
+
+SELECT z.prod, z.month, count(z.quant)
+FROM table1 x FULL OUTER JOIN table2 y USING("prod", "month") FULL OUTER JOIN sales z USING("prod", "month")
+WHERE z.quant > x.avg and z.quant < y.avg
+GROUP BY z.prod, z.month
+ORDER BY z.prod, z.month

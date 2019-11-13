@@ -1,0 +1,18 @@
+Find the for each product the median sale (we assume oddnumber of sales for simplicity of presentation)
+
+WITH
+table1 AS
+( SELECT z.prod, z.quant, count(x.prod)
+  FROM sales x, sales z
+  WHERE z.prod = x.prod
+  GROUP BY z.prod, z.quant ),
+table2 AS
+( SELECT z.prod, z.quant, count(y.prod)
+  FROM sales y, sales z
+  WHERE z.prod = y.prod AND y.quant < z.quant
+  GROUP BY z.prod, z.quant )
+
+SELECT x.prod, x.quant
+FROM table1 x FULL OUTER JOIN table2 y USING("prod", "quant")
+WHERE y.count = x.count / 2
+ORDER BY x.prod, x.quant

@@ -1,0 +1,24 @@
+Find for each customer and for each month the customer's average sale  before,  
+during and  after this month
+neglecting year.
+
+
+WITH
+table1 AS
+( SELECT z.cust, z.month, avg(x.quant) as before1
+  FROM sales x, sales z
+  WHERE x.cust = z.cust AND x.month < z.month
+  GROUP BY z.cust, z.month ),
+table2 AS
+( SELECT z.cust, z.month, avg(y.quant) as after1
+  FROM sales z, sales y
+  WHERE z.cust = y.cust AND z.month < y.month
+  GROUP BY z.cust, z.month ),
+table3 AS
+( SELECT cust, month, avg(quant) as current1
+  FROM sales
+  GROUP BY cust, month )
+
+SELECT z.cust, z.month, before1, current1, after1
+FROM table1 x FULL OUTER JOIN table2 y USING("cust", "month") FULL OUTER JOIN table3 z USING("cust", "month")
+ORDER BY z.cust, z.month

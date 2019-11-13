@@ -1,0 +1,16 @@
+For each product and, show each month’s total sales and year-long total sales.
+
+
+WITH
+table1 AS
+( SELECT prod, month, sum(quant)
+  FROM sales
+  GROUP BY prod, month ),
+table2 AS
+( SELECT prod, sum(quant)
+  FROM sales
+  GROUP BY prod )
+
+SELECT x.prod, x.month, x.sum as monthSale, y.sum as yearSale
+FROM table1 x FULL OUTER JOIN table2 y USING("prod")
+ORDER BY x.prod, x.month

@@ -1,0 +1,17 @@
+Compare for each customer and each product, the customer'saverage sale of this product 
+versus the average sale of the product to the other customers.
+
+WITH
+table1 AS
+( SELECT cust, prod, avg(quant)
+  FROM sales
+  GROUP BY cust, prod ),
+table2 AS
+( SELECT x.cust, x.prod, avg(y.quant)
+  FROM sales x, sales y
+  WHERE x.prod = y.prod AND x.cust <> y.cust
+  GROUP BY x.cust, x.prod )
+
+SELECT x.cust, x.prod, x.avg, y.avg
+FROM table1 x FULL OUTER JOIN table2 y USING("cust", "prod")
+ORDER BY x.cust, x.prod

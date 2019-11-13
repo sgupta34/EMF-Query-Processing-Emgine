@@ -1,0 +1,12 @@
+﻿// SELECT ATTRIBUTE(S):
+prod, quant
+// NUMBER OF GROUPING VARIABLES(n):
+2
+// GROUPING ATTRIBUTES(V):
+prod, quant
+// F-VECT([F]):
+ ; count_1_prod; count_2_prod
+// SELECT CONDITION-VECT([Sigma]):
+ ; 1.prod = prod; 2.prod = prod and 2.quant < quant
+// HAVING CONDITION(G):
+count_2_prod = count_1_prod / 2
